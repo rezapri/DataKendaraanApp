@@ -1,0 +1,124 @@
+﻿@model VMTblDataKendaraan
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+<form id="tambahKendaraan" method="post" asp-action="Add">
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">No Registrasi</label>
+                    <input class="form-control" type="text" name="NoRegistrasi" required />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Nama Pemilik</label>
+                    <input class="form-control" type="text" name="NamaPemilik" required />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Merk Kendaraan</label>
+                    <input class="form-control" type="text" name="MerkKendaraan" />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Alamat Pemilik Kendaraan</label>
+                    <textarea class="form-control" name="Alamat" rows="4"></textarea>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Tahun Pembuatan</label>
+                    <input class="form-control" type="number" name="TahunPembuatan" min="1900" max="2100" />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Kapasitas Silinder</label>
+                    <input class="form-control" type="number" name="KapasitasSilinder" min="50" max="2100" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Warna Kendaraan</label>
+                    <select class="form-select" name="WarnaKendaraan">
+                        <option value="">--Pilih Warna--</option>
+                        <option value="Merah">Merah</option>
+                        <option value="Biru">Biru</option>
+                        <option value="Kuning">Kuning</option>
+                        <option value="Hitam">Hitam</option>
+                        <!-- Add more color options as needed -->
+                    </select>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Bahan Bakar</label>
+                    <input class="form-control" type="text" name="BahanBakar" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <button type="submit" class="btn btn-success"><i class="bi-floppy"></i>&nbsp;Save</button>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    $("#tambahKendaraan").validate({
+        rules: {
+            NoRegistrasi: {
+                pattern: /^[A-Z]{1,3}-\d{1,4}-[A-Z]{3}$/
+            },
+            NamaPemilik: {
+                minlength: 3,
+                maxlength: 100
+            }
+        },
+        errorClass: "text-danger",
+        messages: {
+            NoRegistrasi: {
+                pattern: "Format nomor registrasi tidak valid. Gunakan format yang benar AA-1234-BBB."
+            },
+            NamaPemilik: {
+                minlength: "Nama pemilik minimal {0} karakter.",
+                maxlength: "Nama pemilik maksimal {0} karakter."
+            }
+        }
+    })
+
+    $("#tambahKendaraan").submit(function (event) {
+        if ($("#tambahKendaraan").valid()) {
+            event.preventDefault();
+            var formData = new FormData($(this)[0]);
+            $.ajax({
+                url: "/Home/Add",
+                type: "post",
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function (apiResponse) {
+                    if (apiResponse.success) {
+                        location.reload();
+                    } else {
+                        alert(apiResponse.message);
+                    }
+                },
+                error: function (errResponses) {
+                    alert("Gagal Menambahkan Data!");
+                }
+            });
+        } else {
+            return false;
+        }
+   })
+</script>

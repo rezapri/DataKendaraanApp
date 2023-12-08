@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!-- Standard Modal Pop-Up -->
+<div class="modal" id="myModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header" id="myModelTitle">
+                <h5 class="modal-title">@ViewBag.Title</h5>
+                <button type="button" class="btn-close btn-primary rounden btn btn-sm" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                <p>Modal body text goes here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModalNoLG" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="myModelTitle">
+                <h5 class="modal-title">@ViewBag.Title</h5>
+                <button type="button" class="btn-close btn-primary rounden btn btn-sm" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="myModalBodyNoLG">
+                <p>Modal body text goes here.</p>
+            </div>
+        </div>
+    </div>
+</div>

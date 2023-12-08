@@ -1,0 +1,63 @@
+﻿@model VMTblDataKendaraan
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+<form id="editKendaraan" method="post" asp-action="">
+    <input type="hidden" name="No" value="@Model.No" />
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">No Registrasi</label>
+                    <input class="form-control" type="text" name="NoRegistrasi" value="@Model.NoRegistrasi" disabled />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Nama Pemilik</label>
+                    <input class="form-control" type="text" name="NamaPemilik" value="@Model.NamaPemilik" disabled />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Merk Kendaraan</label>
+                    <input class="form-control" type="text" name="MerkKendaraan" value="@Model.MerkKendaraan" disabled/>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Alamat Pemilik Kendaraan</label>
+                    <textarea class="form-control" name="Alamat" rows="4" disabled>@Model.Alamat</textarea>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Tahun Pembuatan</label>
+                    <input class="form-control" type="number" name="TahunPembuatan" min="1900" max="2100" value="@Model.TahunPembuatan" disabled/>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Kapasitas Silinder</label>
+                    <input class="form-control" type="number" name="KapasitasSilinder" min="50" max="2100" value="@(Model.KapasitasSilinder != null ? Model.KapasitasSilinder : "" )" disabled />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Warna Kendaraan</label>
+                    <input class="form-control" type="text" name="WarnaKendaraan" value="@Model.WarnaKendaraan" disabled />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Bahan Bakar</label>
+                    <input class="form-control" type="text" name="BahanBakar" value="@Model.BahanBakar" disabled/>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

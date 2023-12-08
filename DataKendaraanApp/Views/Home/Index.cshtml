@@ -1,0 +1,88 @@
+﻿@{
+}
+
+@model List<VMTblDataKendaraan>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Aplikasi Data Kendaraan - Reza Prihandi</p>
+    <p>Fitur searching tidak sempat di implementasikan</p>
+</div>
+
+<div class="table-responsive">
+    <button class="btn btn-success" id="btnAdd"><i class="bi-plus-lg"></i></button>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>No Registrasi</th>
+                <th>Nama Pemilik</th>
+                <th>Merk Kendaraan</th>
+                <th>Tahun Pembuatan</th>
+                <th>Kapasitas</th>
+                <th>Warna</th>
+                <th>Bahan Bakar</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(VMTblDataKendaraan kendaraan in Model)
+            {
+                <tr>
+                    <td class="col-1">@kendaraan.No</td>
+                    <td>@kendaraan.NoRegistrasi</td>
+                    <td>@kendaraan.NamaPemilik</td>
+                    <td>@kendaraan.MerkKendaraan</td>
+                    <td>@kendaraan.TahunPembuatan</td>
+                    <td>@(kendaraan.KapasitasSilinder != null ? kendaraan.KapasitasSilinder + " CC" : "N/A")</td>
+                    <td>@kendaraan.WarnaKendaraan</td>
+                    <td>@kendaraan.BahanBakar</td>
+                    <td class="col-2">
+                        <button data-kendaraanid="@kendaraan.No" class="btn btnEdit btn-sm btn-success"><i class="bi-pencil-square"></i></button>
+                        <button data-kendaraanid="@kendaraan.No" class="btn btnDetail btn-sm btn-info"><i class="bi bi-list-ul"></i></button>
+                        <button data-kendaraanid="@kendaraan.No" class="btn btnDelete btn-sm btn-danger"><i class="bi-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#btnAdd").click(function () {
+            $("#myModalBody").load("/Home/Add")
+            $("#myModal").modal("show")
+        });
+
+        $(".btnEdit").click(function () {
+            let kendaraanId = $(this).data("kendaraanid");
+            $("#myModalBody").load("/Home/Edit/" + kendaraanId)
+            $("#myModal").modal("show")
+        })
+
+        $(".btnDetail").click(function () {
+            let kendaraanId = $(this).data("kendaraanid");
+            $("#myModalBody").load("/Home/Show/" + kendaraanId)
+            $("#myModal").modal("show")
+        })
+
+        $(".btnDelete").click(function () {
+            let kendaraanId = $(this).data("kendaraanid");
+            if (confirm("Apakah Anda yakin ingin menghapus kendaraan ini?")) {
+                $.ajax({
+                    url: "/Home/Delete/" + kendaraanId,
+                    type: "POST",
+                    success: function (response) {
+                        // Tambahkan logika untuk menanggapi hasil penghapusan (misalnya, refresh halaman)
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.error(err);
+                        alert("Gagal menghapus kendaraan.");
+                    }
+                });
+            }
+        });
+    });
+</script>
